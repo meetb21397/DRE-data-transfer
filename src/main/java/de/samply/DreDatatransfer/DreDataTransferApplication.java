@@ -19,13 +19,13 @@ public class DreDataTransferApplication {
   public static void main(String[] args) {
     SpringApplication.run(DreDataTransferApplication.class, args);
 
-    Sardine sardine = SardineFactory.begin("admin", "admin");
+    //Add your USER and PASSWORD details in this Sardine Factory section
+    Sardine sardine = SardineFactory.begin("m997t", "Heidelberg2022!");
     InputStream is;
     OutputStream out = null;
 
     try {
-//      is = sardine.get("http://localhost:8080/apps/files/?dir=/MeetData&fileid=0");
-      is = sardine.get("http://localhost:8080/remote.php/dav/files/admin/MeetData/Cohort_Export_1.xlsx");
+      is = sardine.get("https://hub.dkfz.de/apps/onlyoffice/46932282?filePath=%2FDocuments%2FCohort_Export_1.xlsx");
 
       out = new FileOutputStream("D:\\_NextData\\Cohort_Export_1.xlsx");
 
@@ -38,14 +38,15 @@ public class DreDataTransferApplication {
 
       System.out.println("Done!");
 
-//      System.out.println(Arrays.toString(is.readAllBytes()));
-//      List<DavResource> resources = sardine.list("http://localhost:8080/MeetData/");
-//      List<DavResource> resources = sardine.list("http://localhost:8080/remote.php/dav/files/admin/MeetData/");
-//
-//      for (DavResource res : resources)
-//      {
-//        System.out.println(res); // calls the .toString() method.
-//      }
+/*      System.out.println(Arrays.toString(is.readAllBytes()));
+        List<DavResource> resources = sardine.list("http://localhost:8080/MeetData/");
+        List<DavResource> resources = sardine.list("http://localhost:8080/remote.php/dav/files/admin/MeetData/");
+
+      for (DavResource res : resources)
+     {
+      System.out.println(res); // calls the .toString() method.
+     }
+*/
 
     } catch (IOException e) {
       throw new RuntimeException(e);
