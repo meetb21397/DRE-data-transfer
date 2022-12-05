@@ -1,14 +1,18 @@
 package de.samply.DreDatatransfer;
 
+import ch.qos.logback.classic.BasicConfigurator;
 import com.github.sardine.DavResource;
 import com.github.sardine.Sardine;
 import com.github.sardine.SardineFactory;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
+import java.util.logging.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -16,8 +20,33 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class DreDataTransferApplication {
 
+  private static Logger s_logger = Logger.getLogger(DreDataTransferApplication.class);
+
+  private static Properties s_properties = new Properties();
+
+  private static final RestApiUtils s_restApiUtils = RestApiUtils.getInstance();
+
+  static {
+    // Configures the logger to log to stdout
+    BasicConfigurator.configure();
+
+    // Loads the values from configuration file into the Properties instance
+    try {
+      s_properties.load(new FileInputStream("res/config.properties"));
+    } catch (IOException e) {
+      s_logger.error("Failed to load configuration files.");
+    }
+  }
+
+
   public static void main(String[] args) {
     SpringApplication.run(DreDataTransferApplication.class, args);
+
+    // Sets the username, password, and content URL, which are all required
+    // in the payload of a Sign In request
+    String username = s_properties.getProperty("user.admin.name");
+    String password = s_properties.getProperty("user.admin.password");
+    String contentUrl = s_properties.getProperty("site.default.contentUrl");
 
     //Add your USER and PASSWORD details in this Sardine Factory section
     Sardine sardine = SardineFactory.begin("m997t", "Heidelberg2022!");
