@@ -10,10 +10,10 @@
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
   <groupId>com.example</groupId>
-  <artifactId>DRE-data-transfer</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <name>DRE-data-transfer</name>
-  <description>DRE-data-transfer</description>
+  <artifactId>dre-data-transfer</artifactId>
+  <version>0.0.1</version>
+  <name>dre-data-transfer</name>
+  <description>dre-data-transfer</description>
   <properties>
     <java.version>17</java.version>
   </properties>

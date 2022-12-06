@@ -1,10 +1,10 @@
-package de.samply.DreDatatransfer;
+package de.samply.dredatatransfer;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class DreDataTransferApplicationTests {
+class datatransferapplicationTests {
 
   @Test
   void contextLoads() {
