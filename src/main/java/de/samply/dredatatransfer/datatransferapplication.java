@@ -6,8 +6,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import org.apache.http.HttpHost;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.client.support.BasicAuthorizationInterceptor;
+import org.springframework.web.client.RestTemplate;
 
 
 @SpringBootApplication
@@ -21,7 +25,6 @@ public class datatransferapplication {
     Sardine sardine = SardineFactory.begin("admin", "admin");
     InputStream is;
     OutputStream out = null;
-
     try {
       is = sardine.get("http://127.0.0.1:8091/remote.php/dav/files/admin/MeetData/Cohort_Export_1.xlsx");
 
@@ -36,19 +39,19 @@ public class datatransferapplication {
 
       System.out.println("Done!");
 
-/*      System.out.println(Arrays.toString(is.readAllBytes()));
-        List<DavResource> resources = sardine.list("http://localhost:8080/MeetData/");
-        List<DavResource> resources = sardine.list("http://localhost:8080/remote.php/dav/files/admin/MeetData/");
-
-      for (DavResource res : resources)
-     {
-      System.out.println(res); // calls the .toString() method.
-     }
-*/
 
     } catch (IOException e) {
-      throw new RuntimeException(e);
+      //throw new RuntimeException(e);
+      System.out.println(e.getMessage());
     }
 
+    HttpHost host = new HttpHost("httpbin.org", 80, "https");
+    RestTemplate restTemplate = new RestTemplate( new HttpComponentsClientHttpRequestFactoryBasicAuth(host));
+
+    restTemplate.exchange(
+        "http://localhost:8082/spring-security-rest-basic-auth/api/foos/1",
+        HttpMethod.GET, null, datatransferapplication.class);
+
   }
+
 }
