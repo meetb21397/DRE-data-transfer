@@ -1,0 +1,5 @@
+<tsRequest>
+  <credentials name="user-name" password="password">
+    <site contentUrl="site-name" />
+  </credentials>
+</tsRequest>
